@@ -1,7 +1,7 @@
 <script context="module">
 	export async function preload() {
     return {
-      someData: {},
+      exportedProp: {},
     }
 	}
 </script>
@@ -13,7 +13,9 @@
   import Deep3 from "../components/Deep3.svelte";
   import {tick} from "svelte";
 
-  export let someData;
+  export let exportedProp;
+
+  const myVariable = {};
 
   const {preloading} = stores();
 
@@ -29,29 +31,30 @@
 
 <div>
   Page: {$preloading} {tickedPreloading}
-  <div {someData} />
+  <div {exportedProp} />
 </div>
 
 <Deep1>
   Deep 1: {$preloading} {tickedPreloading}
-  <div {someData} />
+  <div {exportedProp} />
 </Deep1>
 
 <Deep2>
   Deep 2: {$preloading} {tickedPreloading}
-  <div {someData} />
+  <div {exportedProp} />
 </Deep2>
 
 <Deep3>
   Deep 3: {$preloading} {tickedPreloading}
-  <div {someData} />
+  <div {exportedProp} />
 </Deep3>
 
 <Deep3>
   Deep 3: {$preloading} {tickedPreloading}
-  {JSON.stringify(someData)}
+  {JSON.stringify(exportedProp)}
 </Deep3>
 
 <Deep3>
   Deep 3: {$preloading} {tickedPreloading} (without using props)
+  {myVariable}
 </Deep3>
