@@ -1,11 +1,5 @@
 <script context="module">
-	function waitFor(n) {
-		return new Promise((y, _) => {
-			setTimeout(y, n);
-		})
-	}
 	export async function preload() {
-		// await waitFor(1000);
     return {
       someData: {},
     }
