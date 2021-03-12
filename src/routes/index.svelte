@@ -1,50 +1,63 @@
-<script>
-	import successkid from 'images/successkid.jpg';
+<script context="module">
+	function waitFor(n) {
+		return new Promise((y, _) => {
+			setTimeout(y, n);
+		})
+	}
+	export async function preload() {
+		// await waitFor(1000);
+    return {
+      someData: {},
+    }
+	}
 </script>
 
-<style>
-	h1, figure, p {
-		text-align: center;
-		margin: 0 auto;
-	}
+<script>
+  import {stores} from '@sapper/app';
+  import Deep1 from "../components/Deep1.svelte";
+  import Deep2 from "../components/Deep2.svelte";
+  import Deep3 from "../components/Deep3.svelte";
+  import {tick} from "svelte";
 
-	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
+  export let someData;
 
-	figure {
-		margin: 0 0 1em 0;
-	}
+  const {preloading} = stores();
 
-	img {
-		width: 100%;
-		max-width: 400px;
-		margin: 0 0 1em 0;
-	}
+  let tickedPreloading;
+  $: {
+    tick().then(() => tickedPreloading = $preloading);
+  }
+</script>
 
-	p {
-		margin: 1em auto;
-	}
 
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
-</style>
+<a href="/">Home</a>
+<a href="/?a=b">Home with query param</a>
 
-<svelte:head>
-	<title>Sapper project template</title>
-</svelte:head>
+<div>
+  Page: {$preloading} {tickedPreloading}
+  <div {someData} />
+</div>
 
-<h1>Great success!</h1>
+<Deep1>
+  Deep 1: {$preloading} {tickedPreloading}
+  <div {someData} />
+</Deep1>
 
-<figure>
-	<img alt="Success Kid" src="{successkid}">
-	<figcaption>Have fun with Sapper!</figcaption>
-</figure>
+<Deep2>
+  Deep 2: {$preloading} {tickedPreloading}
+  <div {someData} />
+</Deep2>
 
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+<Deep3>
+  Deep 3: {$preloading} {tickedPreloading}
+  <div {someData} />
+</Deep3>
+
+<Deep3>
+  Deep 3: {$preloading} {tickedPreloading}
+  {JSON.stringify(someData)}
+</Deep3>
+
+<Deep3>
+  Deep 3: {$preloading} {tickedPreloading} (without using props)
+</Deep3>
